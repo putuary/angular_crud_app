@@ -1,0 +1,36 @@
+<div class="container">
+    <h1 class="text-center mb-3">Table Mahasiswa</h1>
+
+    <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#postModal">
+        <i class="bi bi-plus"></i>
+    </button>
+
+    <app-modal modaName="Tambah Mahasiswa" (onData)="getData($event)"></app-modal>
+
+    <table class="table table-responsive" border="2">
+        <thead class="table-light">
+            <tr>
+                <th class="text-center">No</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">NIM</th>
+                <th class="text-center">Prodi</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (student of students; track student.id) {
+            <tr>
+                <td class="text-center">{{ $index + 1 }}</td>
+                <td>{{ student.name }}</td>
+                <td class="text-center">{{ student.nim }}</td>
+                <td>{{ student.prodi }}</td>
+                <td class="text-center">
+                    <button class="btn btn-warning mx-2" data-bs-toggle="modal" (click)="getStudentId(student.id)" data-bs-target="#updateModal"><i class="bi bi-pencil-square"></i></button>
+                    <button class="btn btn-danger mx-2" (click)="deleteStudent(student.id)"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>
+            }
+        </tbody>
+      </table>
+      <app-modal-update modaName="Edit Mahasiswa" (onDataEdit)="getDataEdit($event)" [student]="student"></app-modal-update>
+</div>
